@@ -15,6 +15,7 @@ public class Person {
     }
 
     public Person(String s, String s1) {
+        setName(s);
     }
 
 

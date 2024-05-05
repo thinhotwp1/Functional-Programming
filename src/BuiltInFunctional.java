@@ -2,28 +2,116 @@ import entity.Person;
 import entity.Student;
 import entity.Teacher;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.*;
 
-public class FuntionalProgramming {
+public class BuiltInFunctional {
     /**
      * <p>Những hàm như Consumer, BiConsumer nhận 1 hoặc 2 tham số và sử dụng những tham số đó</p>
      * <p>Hàm Supplier<T> không nhận tham số và trả về giá trị T qua method get()</p>
      * <p>Hàm Function<T,R> và BiFunction<T, U, R> nhận tham số đầu vào là T,U và trả về object R</p>
      */
     public static void main(String[] args) {
-        useConsumer();
+//        useConsumer();
+//
+//        useBiConsumer();
+//
+//        useSupplier();
+//
+//        useFunction();
+//
+//        useBiFunction();
+//
+//        useLambda();
+//
+//        useUnaryOperator();
+//
+//        useBinaryOperator();
+//
+//        usePredicate();
+//
+//        useBiPredicate();
+//
+//        checkingFunctionalInterfaces();
 
-        useBiConsumer();
+        useParallelStream();
 
-        useSupplier();
 
-        useFunction();
+    }
 
-        useBiFunction();
+    /**
+     * ParallelStream dùng để tạo stream chạy tiến trình song song
+     */
+    private static void useParallelStream() {
+        List<Integer> list = Arrays.asList(1, 2, 3);
+        int tich = list.parallelStream().reduce(1, (integer, integer2) -> integer * integer2);
+        System.out.println("Tích các số: " + tich);
+    }
 
-        functionConstructor();
+    /**
+     * BiPredicate dùng để tạo hàm so sánh với 2 tham số và trả về một boolean
+     */
+    private static void useBiPredicate() {
+        BiPredicate<Integer, Person> biPredicate = new BiPredicate<Integer, Person>() {
+            @Override
+            public boolean test(Integer integer, Person person) {
+                return integer > person.getAge();
+            }
+        };
+    }
+
+    /**
+     * Predicate dùng để tạo hàm so sánh với 1 tham số và trả về một boolean
+     */
+    private static void usePredicate() {
+        Predicate<Integer> predicate = new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer > 10;
+            }
+        };
+
+        System.out.println("Predicate with 10: " + predicate.test(20));
+    }
+
+    private static void checkingFunctionalInterfaces() {
+        // Kiểm tra xem interface Predicate có phải là functional interface hay không
+        boolean isFunctional = isFunctionalInterface(Predicate.class);
+        System.out.println("Is Predicate a functional interface? " + isFunctional);
+    }
+
+    public static boolean isFunctionalInterface(Class<?> clazz) {
+        // Kiểm tra xem interface có chú thích @FunctionalInterface hay không
+        if (clazz.isAnnotationPresent(FunctionalInterface.class)) {
+            // Kiểm tra xem interface có chỉ có một phương thức trừu tượng không
+            return clazz.getDeclaredMethods().length == 1;
+        }
+        return false;
+    }
+
+    private static void useBinaryOperator() {
+        BinaryOperator<Integer> sum = (x, y) -> x + y;
+
+        int result = sum.apply(5, 3); // Kết quả là 5 + 3 = 8
+        System.out.println("Sum of 5 and 3: " + result);
+    }
+
+    /**
+     * <p>
+     * UnaryOperator là một functional interface đại diện cho một phép toán được thực hiện trên một đối tượng và trả về kết quả cùng kiểu dữ liệu với đối tượng đầu vào.
+     * </P>
+     */
+    private static void useUnaryOperator() {
+        UnaryOperator<Integer> unaryOperator = new UnaryOperator<Integer>() {
+            @Override
+            public Integer apply(Integer i) {
+                return i * i;
+            }
+        };
+        System.out.println("UnaryOperator: " + unaryOperator.apply(5));
     }
 
     private static void useConsumer() {
@@ -62,7 +150,7 @@ public class FuntionalProgramming {
     private static void useFunction() {
         // Function nhận 2 param và trả về object tương ứng,
         // ở đây trả về Object Person dựa vào hàm createPerson và 2 params truyền vào là 2 string 
-        Function<String, Person> personFunction = FuntionalProgramming::createPerson;
+        Function<String, Person> personFunction = BuiltInFunctional::createPerson;
         Person obj = personFunction.apply("name");
         System.out.println(obj.getName());
         System.out.println("------------Function End---------");
@@ -71,7 +159,7 @@ public class FuntionalProgramming {
     private static void useBiFunction() {
         // BiFunction nhận 2 param và trả về object tương ứng,
         // ở đây trả về Object Person dựa vào hàm createPerson và 2 params truyền vào là 2 string
-        BiFunction<String, String, Person> personBiFunction = FuntionalProgramming::createPerson;
+        BiFunction<String, String, Person> personBiFunction = BuiltInFunctional::createPerson;
         Person obj = personBiFunction.apply("param1", "param2");
         System.out.println(obj.getName());
         System.out.println("------------BiFunction End---------");
@@ -85,7 +173,7 @@ public class FuntionalProgramming {
         return new Person(s, s1);
     }
 
-    private static void functionConstructor() {
+    private static void useLambda() {
         // Sử dụng constructor method reference để tạo mới một đối tượng,
         // phù hợp khi cần tạo nhiều đối tượng từ danh sách
         Map<String, String> listData = new HashMap<>();

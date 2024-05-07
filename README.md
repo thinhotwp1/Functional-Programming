@@ -4,22 +4,22 @@ Các hàm function của Java viết giúp hỗ trợ một số trường hợp
 
 Các hàm của Java trong classpath java.util.function như:
 //        useConsumer();
-//
+
 //        useBiConsumer();
-//
+
 //        useSupplier();
-//
+
 //        useFunction();
-//
+
 //        useBiFunction();
-//
+
 //        useLambda();
-//
+
 //        useUnaryOperator();
-//
+
 //        useBinaryOperator();
-//
+
 //        usePredicate();
-//
+
 //        useBiPredicate();
 ..........

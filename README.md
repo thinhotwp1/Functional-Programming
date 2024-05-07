@@ -1,5 +1,6 @@
-# Method_Reference
-Method Reference Functional Programming In Java
+# Functional Programming
+Functional Programming In Java
+
 Các hàm function của Java viết giúp hỗ trợ một số trường hợp như clean code, tránh các lỗi không mong muốn xảy ra, dễ dàng đọc và sử dụng, ví dụ:
 
  - Consumer và BiConsumer trả về object cụ thể với tham số truyền vào, giúp ngắn gọn và dễ đọc code.
